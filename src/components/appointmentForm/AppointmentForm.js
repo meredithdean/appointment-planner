@@ -1,18 +1,7 @@
 import React from "react";
 import { ContactPicker } from "../contactPicker/ContactPicker";
 
-export const AppointmentForm = ({
-  contacts,
-  title,
-  setTitle,
-  contact,
-  setContact,
-  date,
-  setDate,
-  time,
-  setTime,
-  handleSubmit
-}) => {
+export const AppointmentForm = ({contacts, title, contact, date, time, setTitle, setContact, setDate, setTime, handleSubmit}) => {
   const getTodayString = () => {
     const [month, day, year] = new Date()
       .toLocaleDateString("en-US")
@@ -20,14 +9,35 @@ export const AppointmentForm = ({
     return `${year}-${month.padStart(2, "0")}-${day.padStart(2, "0")}`;
   };
 
+  const getContactNames = () => {
+    return contacts.map((contact) => contact.name);
+  };
+
+
+  const handleTitle = (e) => {
+    setTitle(e.target.value);
+  };
+
+  const handleContact = (e) => {
+    setContact(e.target.value);
+  };
+
+  const handleDate = (e) => {
+    setDate(e.target.value);
+  };
+
+  const handleTime = (e) => {
+    setTime(e.target.value);
+  };
+
   return (
-    <form onsubmit={handleSubmit}>
+    <form onSubmit={handleSubmit}>
       <label>
         <input 
           type="text"
           name="title"
           value={title}
-          onChange={(e) => {setTitle(e.target.value)}}
+          onChange={handleTitle}
           required
           placeholder="Appointment For" />
       </label>
@@ -36,8 +46,8 @@ export const AppointmentForm = ({
         <ContactPicker 
           name="contact"
           value={contact}
-          onChange={(e) => setContact(e.target.value)}
-          contacts={contacts}
+          onChange={handleContact}
+          contacts={getContactNames()}
           required
           placeholder="Appointment With" />
       </label>
@@ -47,7 +57,7 @@ export const AppointmentForm = ({
           type="date"
           name="date"
           value={date} 
-          onChange={(e) => setDate(e.target.value)}
+          onChange={handleDate}
           min={getTodayString()}
           required />
       </label>
@@ -57,7 +67,7 @@ export const AppointmentForm = ({
           type="time"
           name="time"
           value={time} 
-          onChange={(e) => setTime(e.target.value)}
+          onChange={handleTime}
           required />
       </label>
       <br />
