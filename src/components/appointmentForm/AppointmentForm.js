@@ -27,7 +27,7 @@ export const AppointmentForm = ({
           type="text"
           name="title"
           value={title}
-          onChange={(e) => setTitle(e.target.value)}
+          onChange={(e) => {setTitle(e.target.value)}}
           required
           placeholder="Appointment For" />
       </label>
